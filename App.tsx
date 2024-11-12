@@ -5,21 +5,25 @@
  * @format
  */
 
-import React from 'react';
+import React,{useEffect} from 'react';
 import {
   SafeAreaView,
   ScrollView,
   StyleSheet,
-  Text,
-  useColorScheme,
-  View,
 } from 'react-native';
-
-import {Colors} from 'react-native/Libraries/NewAppScreen';
 import MainPage from './src/pages/MainPage';
+import SplashScreen from 'react-native-splash-screen';
 
 function App(): React.JSX.Element {
 
+
+  //  useEffect for the splash screen element
+  // hide splash screen after 3 seconds
+  useEffect(() => {
+    setTimeout(() => {
+      SplashScreen.hide();
+    }, 3000); // 3-second delay
+  }, []);
 
   return (
     <SafeAreaView style={styles.safeArea}>
