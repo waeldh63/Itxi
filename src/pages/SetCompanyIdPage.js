@@ -8,7 +8,7 @@ function SetCompanyIdPage({ navigation }) {
 
       <Button
         title="Go to Enter Company ID"
-        onPress={() => navigation.navigate('EnterCompanyIdPage')} 
+        onPress={() => navigation.navigate('CompanyIdPage',{source: 'setCompanyIDPage'})} 
       />
     </View>
   );

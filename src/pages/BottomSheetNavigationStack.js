@@ -3,7 +3,7 @@ import {createStackNavigator} from '@react-navigation/stack';
 import SettingsPage from './SettingsPage';
 import SetCompanyIdPage from './SetCompanyIdPage';
 import PickVoicePage from './PickVoicePage';
-import EnterCompanyIdPage from './EnterCompanyIdPage';
+import CompanyIdPage from './CompanyIdPage';
 
 const BottomSheetStack = createStackNavigator();
 
@@ -34,13 +34,13 @@ const BottomSheetNavigationStack = () => (
       }}
     />    
     <BottomSheetStack.Screen
-      name="EnterCompanyIdPage"
-      component={EnterCompanyIdPage}
-      options={{
-        title: 'Enter Company Id Page',
-        presentation: 'modal',
-      }}
-    />
+          name="CompanyIdPage"
+          component={CompanyIdPage}
+          options={{
+            title: 'Enter Company Id Page',
+            presentation: 'modal',
+            }}
+      />
   </BottomSheetStack.Navigator>
 );
 
