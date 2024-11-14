@@ -1,6 +1,5 @@
 import React from 'react';
-import { View, Text, Button, StyleSheet } from 'react-native';
-import { useNavigation } from '@react-navigation/native'; 
+import { View, Text, Button, StyleSheet,TouchableOpacity } from 'react-native';
 
 const SettingsPage = ({ navigation }) => {
 
@@ -8,15 +7,19 @@ const SettingsPage = ({ navigation }) => {
     <View style={styles.container}>
       <Text style={styles.text}>Settings Page</Text>
 
-      <Button
-        title="Go to Pick Voice Screen"
-        onPress={() => navigation.navigate('PickVoicePage', { source: 'settingPage' })} 
-      />
+      <TouchableOpacity 
+        style={styles.buttons}
+        onPress={() => navigation.navigate('PickVoicePage', { source: 'settingPage' })}
+      >
+        <Text style={styles.buttonText}>Go to Pick Voice Screen</Text>
+      </TouchableOpacity>
 
-      <Button
-        title="Go to Set Company ID"
-        onPress={() => navigation.navigate('SetCompanyIdPage')} 
-      />
+      <TouchableOpacity 
+        style={styles.buttons}
+        onPress={() => navigation.navigate('SetCompanyIdPage')}
+      >
+        <Text style={styles.buttonText}>Go to Set Company ID</Text>
+      </TouchableOpacity>
     </View>
   );
 }
@@ -30,6 +33,19 @@ const styles = StyleSheet.create({
   text: {
     fontSize: 24,
     marginBottom: 20,
+  },
+  buttons:{
+    marginBottom: 20,
+    padding: 10,
+    backgroundColor: '#d3d3d3',
+    borderRadius: 15,
+    width: '80%',
+    alignItems: 'center',
+
+  },
+  buttonText: {
+    color: '#000',
+    fontSize: 16,
   },
 });
 

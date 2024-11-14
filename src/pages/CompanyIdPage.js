@@ -72,7 +72,7 @@ function CompanyIdPage({navigation,route}) {
       {source === 'setCompanyIDPage' && (
               <ScrollView contentContainerStyle={{ padding: 5 }}>
                 {CompanyId.map((companyId) => (
-                  <Text key={companyId.id} style={{ marginVertical: 5 }}>
+                  <Text key={companyId.companyId} style={{ marginVertical: 5 }}>
                     {companyId.companyId}, {companyId.companyName}
                   </Text>
                 ))}
