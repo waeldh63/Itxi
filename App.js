@@ -1,12 +1,5 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- */
-
-import React, {useEffect} from 'react';
-import { StyleSheet} from 'react-native';
+import React, {useEffect, useRef} from 'react';
+import {StyleSheet} from 'react-native';
 import MainPage from './src/pages/MainPage';
 import SplashScreen from 'react-native-splash-screen';
 
@@ -16,11 +9,17 @@ import WelcomePage from './src/pages/WelcomePage';
 import CompanyIdPage from './src/pages/CompanyIdPage';
 import PickVoicePage from './src/pages/PickVoicePage';
 
+import {IconButton} from 'react-native-paper';
+import RBSheet from 'react-native-raw-bottom-sheet';
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import SettingsPage from './src/pages/SettingsPage';
+
 const Stack = createStackNavigator();
 
-function App(): React.JSX.Element {
-  //  useEffect for the splash screen element
-  // hide splash screen after 3 seconds
+function App() {
+  const bottomSheetRef = useRef(null);
+
+  // useEffect for the splash screen element
   useEffect(() => {
     setTimeout(() => {
       SplashScreen.hide();
@@ -51,9 +50,39 @@ function App(): React.JSX.Element {
         <Stack.Screen
           name="MainPage"
           component={MainPage}
-          options={{headerShown: false}}
+          options={{
+            headerLeft: () => (
+              <IconButton
+                icon={() => (
+                  <MaterialCommunityIcons
+                    name="cog-outline"
+                    size={40}
+                    color="black"
+                  />
+                )}
+                size={40}
+                color="black"
+                onPress={() => bottomSheetRef.current?.open()}
+              />
+            ),
+            headerShown: true,
+          }}
+        />
+
+        <Stack.Screen
+          name="SettingsPage"
+          component={SettingsPage}
+          options={{title: 'Settings'}}
         />
       </Stack.Navigator>
+
+      <RBSheet
+        ref={bottomSheetRef}
+        height={400}
+        openDuration={250}
+        customStyles={{container: styles.bottomSheetContainer}}>
+        <SettingsPage />
+      </RBSheet>
     </NavigationContainer>
   );
 }
@@ -65,6 +94,7 @@ const styles = StyleSheet.create({
   scrollView: {
     flexGrow: 1,
   },
+  bottomSheetContainer: {padding: 10},
 });
 
 export default App;
