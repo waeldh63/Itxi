@@ -32,15 +32,15 @@ const BottomSheetNavigationStack = () => (
         title: 'Pick Voice ',
         presentation: 'modal',
       }}
-    />    
+    />
     <BottomSheetStack.Screen
-          name="CompanyIdPage"
-          component={CompanyIdPage}
-          options={{
-            title: 'Enter Company Id Page',
-            presentation: 'modal',
-            }}
-      />
+      name="CompanyIdPage"
+      component={CompanyIdPage}
+      options={{
+        title: 'Enter Company Id Page',
+        presentation: 'modal',
+      }}
+    />
   </BottomSheetStack.Navigator>
 );
 

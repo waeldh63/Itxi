@@ -1,10 +1,21 @@
 import React from 'react';
-import { View, Text, Button } from 'react-native';
+import {View, Button} from 'react-native';
 
-function WelcomePage({ navigation }) {
+function WelcomePage({navigation}) {
   return (
-    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center',backgroundColor:"#4abfdf" }}>
-      <Button title="Get Started" onPress={() => navigation.navigate('CompanyIdPage',{source:'onBoarding'})} />
+    <View
+      style={{
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: '#4abfdf',
+      }}>
+      <Button
+        title="Get Started"
+        onPress={() =>
+          navigation.navigate('CompanyIdPage', {source: 'onBoarding'})
+        }
+      />
     </View>
   );
 }

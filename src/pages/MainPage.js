@@ -1,10 +1,12 @@
-import React, {useState, useRef} from 'react';
+import React, {useState, useRef, useEffect} from 'react';
 import {StyleSheet, Text, View, Button, Modal} from 'react-native';
-
 import {IconButton} from 'react-native-paper';
 import RBSheet from 'react-native-raw-bottom-sheet';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import BottomSheetNavigationStack from './BottomSheetNavigationStack';
+import {useNavigation} from '@react-navigation/native';
+import {Linking} from 'react-native';
+
 const MainPage = () => {
   const [isVoicebotVisible, setIsVoicebotVisible] = useState(false);
   const bottomSheetRef = useRef(null);
@@ -16,6 +18,33 @@ const MainPage = () => {
   const closeVoicebot = () => {
     setIsVoicebotVisible(false);
   };
+  const navigation = useNavigation();
+
+  const handleDeepLink = event => {
+    const url = event.url;
+    console.log('Deep link received:', url);
+    if (url.includes('set-company-id')) {
+      bottomSheetRef.current?.open();
+      setTimeout(() => {
+        navigation.navigate('SetCompanyIdPage');
+      }, 500);
+    }
+  };
+
+  useEffect(() => {
+    const subscription = Linking.addEventListener('url', handleDeepLink);
+    Linking.getInitialURL().then(url => {
+      if (url && url.includes('set-company-id')) {
+        bottomSheetRef.current?.open();
+        setTimeout(() => {
+          navigation.navigate('SetCompanyIdPage');
+        }, 500);
+      }
+    });
+    return () => {
+      subscription.remove();
+    };
+  }, [navigation]);
 
   return (
     <View style={styles.mainPageContainer}>
@@ -26,11 +55,9 @@ const MainPage = () => {
         size={40}
         color="black"
         onPress={() => bottomSheetRef.current?.open()}
+        style={styles.iconButton}
       />
-      <RBSheet
-        ref={bottomSheetRef}
-        height={500} 
-        closeOnPressMask={true}>
+      <RBSheet ref={bottomSheetRef} height={500} closeOnPressMask={true}>
         <BottomSheetNavigationStack />
       </RBSheet>
       <Text style={styles.text}>MainPage</Text>
@@ -80,6 +107,12 @@ const styles = StyleSheet.create({
   voicebotText: {
     fontSize: 20,
     marginBottom: 20,
+  },
+  iconButton: {
+    position: 'absolute',
+    top: 20,
+    left: 20,
+    zIndex: 1,
   },
 });
 

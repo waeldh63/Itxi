@@ -1,7 +1,6 @@
 import React, {useEffect} from 'react';
 import MainPage from './src/pages/MainPage';
 import SplashScreen from 'react-native-splash-screen';
-
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 import WelcomePage from './src/pages/WelcomePage';
@@ -9,6 +8,21 @@ import CompanyIdPage from './src/pages/CompanyIdPage';
 import PickVoicePage from './src/pages/PickVoicePage';
 
 const Stack = createStackNavigator();
+
+// Define deep linking config
+const linking = {
+  prefixes: ['myapp://'],
+  config: {
+    screens: {
+      MainPage: {
+        path: '',
+        screens: {
+          SetCompanyIdPage: 'set-company-id',
+        },
+      },
+    },
+  },
+};
 
 function App() {
   // useEffect for the splash screen element
@@ -19,7 +33,7 @@ function App() {
   }, []);
 
   return (
-    <NavigationContainer>
+    <NavigationContainer linking={linking}>
       <Stack.Navigator>
         <Stack.Screen
           name="WelcomePage"
@@ -44,7 +58,7 @@ function App() {
           component={MainPage}
           options={{
             headerLeft: () => null,
-            gestureEnabled: false
+            gestureEnabled: false,
           }}
         />
       </Stack.Navigator>

@@ -1,14 +1,16 @@
 import React from 'react';
-import { View, Text, Button, StyleSheet } from 'react-native';
+import {View, Text, Button, StyleSheet} from 'react-native';
 
-function SetCompanyIdPage({ navigation }) {
+function SetCompanyIdPage({navigation}) {
   return (
     <View style={styles.container}>
       <Text style={styles.text}>Set Company ID Page</Text>
 
       <Button
         title="Go to Enter Company ID"
-        onPress={() => navigation.navigate('CompanyIdPage',{source: 'setCompanyIDPage'})} 
+        onPress={() =>
+          navigation.navigate('CompanyIdPage', {source: 'setCompanyIDPage'})
+        }
       />
     </View>
   );

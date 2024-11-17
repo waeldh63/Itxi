@@ -1,16 +1,23 @@
 import React, {useState} from 'react';
-import {View, Text, Button, TextInput, StyleSheet, ScrollView} from 'react-native';
+import {
+  View,
+  Text,
+  Button,
+  TextInput,
+  StyleSheet,
+  ScrollView,
+} from 'react-native';
 import {addCompanyId, checkValidCompanyId} from '../services/CompanyIdServices';
 import CustomTextInput from '../component/CustomTextInput';
-import { CompanyId } from '../data/CompanyIdData';
+import {CompanyId} from '../data/CompanyIdData';
 
-function CompanyIdPage({navigation,route}) {
+function CompanyIdPage({navigation, route}) {
   const [companyId, setCompanyId] = useState(false);
   const [companyIdError, setCompanyIdError] = useState(false);
   const handleCompanyIdChange = text => {
-    setCompanyId(text); 
+    setCompanyId(text);
   };
-  const source = route.params.source
+  const source = route.params.source;
 
   const onContinuePress = () => {
     try {
@@ -30,13 +37,11 @@ function CompanyIdPage({navigation,route}) {
     }
   };
 
-
-
-  const onSubmitPress = ()=>{
+  const onSubmitPress = () => {
     try {
-      const result =  addCompanyId(companyId)
+      const result = addCompanyId(companyId);
       if (result) {
-        navigation.goBack()
+        navigation.goBack();
         setCompanyIdError(false);
       } else {
         alert('Company ID already exist');
@@ -48,13 +53,12 @@ function CompanyIdPage({navigation,route}) {
         error,
       );
     }
-
-
-  }
+  };
   return (
     <View style={styles.MainContainer}>
-
-      <Text style={{marginTop:20,marginLeft:50}}>Enter A Valid Company Id </Text>
+      <Text style={{marginTop: 20, marginLeft: 50}}>
+        Enter A Valid Company Id{' '}
+      </Text>
       <CustomTextInput
         placeholder="Company Id"
         value={companyId}
@@ -63,21 +67,21 @@ function CompanyIdPage({navigation,route}) {
         error={companyIdError}
       />
 
-      {source == 'onBoarding' &&
-      <Button title="Continue" onPress={onContinuePress} />
-      }
-      {source == 'setCompanyIDPage' &&
-      <Button title="submit" onPress={onSubmitPress} />
-      }
+      {source == 'onBoarding' && (
+        <Button title="Continue" onPress={onContinuePress} />
+      )}
+      {source == 'setCompanyIDPage' && (
+        <Button title="submit" onPress={onSubmitPress} />
+      )}
       {source === 'setCompanyIDPage' && (
-              <ScrollView contentContainerStyle={{ padding: 5 }}>
-                {CompanyId.map((companyId) => (
-                  <Text key={companyId.companyId} style={{ marginVertical: 5 }}>
-                    {companyId.companyId}, {companyId.companyName}
-                  </Text>
-                ))}
-              </ScrollView>
-            )}
+        <ScrollView contentContainerStyle={{padding: 5}}>
+          {CompanyId.map(companyId => (
+            <Text key={companyId.companyId} style={{marginVertical: 5}}>
+              {companyId.companyId}, {companyId.companyName}
+            </Text>
+          ))}
+        </ScrollView>
+      )}
     </View>
   );
 }
