@@ -6,6 +6,7 @@ import {createStackNavigator} from '@react-navigation/stack';
 import WelcomePage from './src/pages/WelcomePage';
 import CompanyIdPage from './src/pages/CompanyIdPage';
 import PickVoicePage from './src/pages/PickVoicePage';
+import { CardStyleInterpolators } from '@react-navigation/stack';
 
 const Stack = createStackNavigator();
 
@@ -34,7 +35,10 @@ function App() {
 
   return (
     <NavigationContainer linking={linking}>
-      <Stack.Navigator>
+      <Stack.Navigator
+    screenOptions={{
+          // Default transition behavior (slide from right to left)
+          cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS}}>
         <Stack.Screen
           name="WelcomePage"
           component={WelcomePage}
@@ -49,8 +53,9 @@ function App() {
           name="PickVoicePage"
           component={PickVoicePage}
           options={{
-            title: 'Pick Voice ',
+            title: 'Pick Voice',
             presentation: 'modal',
+            gestureEnabled: true,
           }}
         />
         <Stack.Screen
