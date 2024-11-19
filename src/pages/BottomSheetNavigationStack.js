@@ -4,11 +4,14 @@ import SettingsPage from './SettingsPage';
 import SetCompanyIdPage from './SetCompanyIdPage';
 import PickVoicePage from './PickVoicePage';
 import CompanyIdPage from './CompanyIdPage';
+import { CardStyleInterpolators } from '@react-navigation/stack';
 
 const BottomSheetStack = createStackNavigator();
 
 const BottomSheetNavigationStack = () => (
-  <BottomSheetStack.Navigator>
+  <BottomSheetStack.Navigator    screenOptions={{
+    // Default transition behavior (slide from right to left)
+    cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS}}>
     <BottomSheetStack.Screen
       name="SettingsPage"
       component={SettingsPage}
