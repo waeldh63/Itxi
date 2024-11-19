@@ -5,7 +5,7 @@ import RBSheet from 'react-native-raw-bottom-sheet';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import BottomSheetNavigationStack from './BottomSheetNavigationStack';
 import {useNavigation} from '@react-navigation/native';
-import {Linking} from 'react-native';
+import {Linking,BackHandler, Alert} from 'react-native';
 
 const MainPage = () => {
   const [isVoicebotVisible, setIsVoicebotVisible] = useState(false);
@@ -46,6 +46,28 @@ const MainPage = () => {
     };
   }, [navigation]);
 
+  // Prevent back navigation 
+  useEffect(() => {
+    const handleBackPress = () => {
+      // Disable back navigation
+      Alert.alert(
+        'Exit App',
+        'Are you sure you want to exit?',
+        [
+          { text: 'Cancel', style: 'cancel' },
+          { text: 'OK', onPress: () => BackHandler.exitApp() }, // Exit app if desired
+        ],
+        { cancelable: false }
+      );
+      return true; // Prevent default back button behavior
+    };
+
+    BackHandler.addEventListener('hardwareBackPress', handleBackPress);
+
+    return () => {
+      BackHandler.removeEventListener('hardwareBackPress', handleBackPress);
+    };
+  }, []);
   return (
     <View style={styles.mainPageContainer}>
       <IconButton
@@ -67,7 +89,7 @@ const MainPage = () => {
       <Modal
         visible={isVoicebotVisible}
         transparent={true}
-        animationType="slide"
+        // animationType="slide" pop up without animation
         onRequestClose={closeVoicebot}>
         <View style={styles.modalContainer}>
           <View style={styles.modalContent}>
