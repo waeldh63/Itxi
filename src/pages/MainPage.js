@@ -6,7 +6,9 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 import BottomSheetNavigationStack from './BottomSheetNavigationStack';
 import {useNavigation} from '@react-navigation/native';
 import {Linking,BackHandler, Alert} from 'react-native';
+import { Dimensions } from 'react-native';
 
+const { height } = Dimensions.get('window');
 const MainPage = () => {
   const [isVoicebotVisible, setIsVoicebotVisible] = useState(false);
   const bottomSheetRef = useRef(null);
@@ -79,8 +81,8 @@ const MainPage = () => {
         onPress={() => bottomSheetRef.current?.open()}
         style={styles.iconButton}
       />
-      <RBSheet ref={bottomSheetRef} height={500} closeOnPressMask={true}>
-        <BottomSheetNavigationStack />
+      <RBSheet ref={bottomSheetRef} height={height} closeOnPressMask={true}>
+        <BottomSheetNavigationStack bottomSheetRef={bottomSheetRef}/>
       </RBSheet>
       <Text style={styles.text}>MainPage</Text>
 

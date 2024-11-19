@@ -5,18 +5,28 @@ import SetCompanyIdPage from './SetCompanyIdPage';
 import PickVoicePage from './PickVoicePage';
 import CompanyIdPage from './CompanyIdPage';
 import { CardStyleInterpolators } from '@react-navigation/stack';
+import {IconButton} from 'react-native-paper';
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
 const BottomSheetStack = createStackNavigator();
 
-const BottomSheetNavigationStack = () => (
+const BottomSheetNavigationStack = ({ bottomSheetRef }) => (
   <BottomSheetStack.Navigator    screenOptions={{
     // Default transition behavior (slide from right to left)
     cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS}}>
-    <BottomSheetStack.Screen
+<BottomSheetStack.Screen
       name="SettingsPage"
       component={SettingsPage}
       options={{
-        headerLeft: () => null,
+        headerLeft: () => (
+          <IconButton
+            icon={() => <MaterialCommunityIcons name="arrow-left" size={30} color="black" />}
+            onPress={() => bottomSheetRef.current?.close()} // Close bottom sheet
+            size={30}
+            color="black"
+            style={{ marginLeft: 10 }}
+          />
+        ),
         gestureEnabled: false,
       }}
     />
