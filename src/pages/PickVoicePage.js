@@ -63,7 +63,8 @@ function PickVoicePage({navigation, route}) {
       {source == 'CompanyIdPage' && (
         <Button
           title="Dismiss"
-          onPress={() => navigation.navigate('MainPage')}
+          onPress={() => navigation.navigate('MainPage', {fromMainPage: true})
+        }
         />
       )}
     </View>
